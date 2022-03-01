@@ -534,8 +534,11 @@ static int dw_i2s_resume(struct snd_soc_component *component)
 	int stream;
 	int ret;
 
-	if (dev->capability & DW_I2S_MASTER)
-		clk_enable(dev->clk);
+	if (dev->capability & DW_I2S_MASTER) {
+		ret = clk_enable(dev->clk);
+		if (ret)
+			return ret;
+	}
 
 	ret = pm_runtime_force_resume(component->dev);
 	if (ret)
