@@ -96,6 +96,7 @@ struct cqspi_st {
 	u32			wr_delay;
 	bool			use_direct_mode;
 	struct cqspi_flash_pdata f_pdata[CQSPI_MAX_CHIPSELECT];
+	bool                    wr_completion;
 };
 
 struct cqspi_driver_platdata {
