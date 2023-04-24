@@ -240,12 +240,16 @@ static int __init sifive_l2_init(void)
 	if (!np)
 		return -ENODEV;
 
-	if (of_address_to_resource(np, 0, &res))
-		return -ENODEV;
+	if (of_address_to_resource(np, 0, &res)) {
+		rc = -ENODEV;
+		goto err_node_put;
+	}
 
 	l2_base = ioremap(res.start, resource_size(&res));
-	if (!l2_base)
-		return -ENOMEM;
+	if (!l2_base) {
+		rc = -ENOMEM;
+		goto err_node_put;
+	}
 
 	intr_num = of_property_count_u32_elems(np, "interrupts");
 	if (!intr_num) {
@@ -262,6 +266,7 @@ static int __init sifive_l2_init(void)
 			goto err_free_irq;
 		}
 	}
+	of_node_put(np);
 
 	l2_config_read();
 
@@ -278,6 +283,8 @@ err_free_irq:
 		free_irq(g_irq[i], NULL);
 err_unmap:
 	iounmap(l2_base);
+err_node_put:
+	of_node_put(np);
 	return rc;
 }
 device_initcall(sifive_l2_init);
