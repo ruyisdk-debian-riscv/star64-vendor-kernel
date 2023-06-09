@@ -113,7 +113,7 @@ static int csi_set_stream(struct v4l2_subdev *sd, int enable)
 		return ret;
 
 	code = csi_dev->formats_sink[ret].code;
-	
+	bpp = csi_dev->formats_src[ret].bpp;
 	dt = code_to_data_type(code);
 
 	mutex_lock(&csi_dev->stream_lock);
