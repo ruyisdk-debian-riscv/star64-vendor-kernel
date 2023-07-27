@@ -17,4 +17,6 @@ dtb-$(CONFIG_SOC_STARFIVE_JH7110) += jh7110-visionfive-v2.dtb	\
 				jh7110-visionfive-v2-wm8960.dtb	\
 				jh7110-visionfive-v2-ac108.dtb \
 				jh7110-pine64-star64.dtb \
-				jh7110-pine64-pinetabv.dtb 
+				jh7110-pine64-pinetabv.dtb \
+				jh7110-visionfive-v2-sof-wm8960.dtb	\
+				jh7110-visionfive-v2-ac108.dtb
